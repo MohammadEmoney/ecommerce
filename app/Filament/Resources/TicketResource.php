@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AttributeValueResource\Pages;
-use App\Filament\Resources\AttributeValueResource\RelationManagers;
-use App\Models\AttributeValue;
+use App\Filament\Resources\TicketResource\Pages;
+use App\Filament\Resources\TicketResource\RelationManagers;
+use App\Models\Ticket;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AttributeValueResource extends Resource
+class TicketResource extends Resource
 {
-    protected static ?string $model = AttributeValue::class;
+    protected static ?string $model = Ticket::class;
 
-    protected static ?string $navigationGroup = 'Product';
+    protected static ?string $navigationGroup = 'General';
 
-    protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
+    protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
     public static function form(Form $form): Form
     {
@@ -61,9 +61,9 @@ class AttributeValueResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAttributeValues::route('/'),
-            'create' => Pages\CreateAttributeValue::route('/create'),
-            'edit' => Pages\EditAttributeValue::route('/{record}/edit'),
+            'index' => Pages\ListTickets::route('/'),
+            'create' => Pages\CreateTicket::route('/create'),
+            'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 }

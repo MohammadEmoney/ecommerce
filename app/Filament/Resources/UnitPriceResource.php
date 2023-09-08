@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AttributeValueResource\Pages;
-use App\Filament\Resources\AttributeValueResource\RelationManagers;
-use App\Models\AttributeValue;
+use App\Filament\Resources\UnitPriceResource\Pages;
+use App\Filament\Resources\UnitPriceResource\RelationManagers;
+use App\Models\UnitPrice;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,19 +14,21 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AttributeValueResource extends Resource
+class UnitPriceResource extends Resource
 {
-    protected static ?string $model = AttributeValue::class;
+    protected static ?string $model = UnitPrice::class;
 
-    protected static ?string $navigationGroup = 'Product';
+    protected static ?string $navigationGroup = 'General';
 
-    protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name'),
+                TextInput::make('symbole'),
+                TextInput::make('iso'),
             ]);
     }
 
@@ -33,7 +36,7 @@ class AttributeValueResource extends Resource
     {
         return $table
             ->columns([
-                //
+                
             ])
             ->filters([
                 //
@@ -61,9 +64,9 @@ class AttributeValueResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAttributeValues::route('/'),
-            'create' => Pages\CreateAttributeValue::route('/create'),
-            'edit' => Pages\EditAttributeValue::route('/{record}/edit'),
+            'index' => Pages\ListUnitPrices::route('/'),
+            'create' => Pages\CreateUnitPrice::route('/create'),
+            'edit' => Pages\EditUnitPrice::route('/{record}/edit'),
         ];
     }
 }

@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\ModelStatus\HasStatuses;
+use Spatie\Tags\HasTags;
 
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasTags;
+    use HasStatuses;
 
     /**
      * The attributes that are mass assignable.

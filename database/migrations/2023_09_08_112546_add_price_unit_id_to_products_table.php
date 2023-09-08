@@ -12,9 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->bigInteger('views')->default(0)->after('meta');
-            $table->boolean('is_featured')->default(0)->after('is_active');
-            $table->timestamp('published_at')->nullable()->after('meta');
+            $table->unsignedBigInteger('unit_price_id')->nullable()->after('price');
+            $table->foreign('unit_price_id')->references('id')->on('unit_prices');
         });
     }
 
@@ -24,7 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn(['views', 'is_featured', 'published_at']);
+            $table->dropForeign('unit_price_id');
+            $table->dropColumn('unit_price_id');
         });
     }
 };

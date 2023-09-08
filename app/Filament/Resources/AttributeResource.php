@@ -17,7 +17,9 @@ class AttributeResource extends Resource
 {
     protected static ?string $model = Attribute::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Product';
+
+    protected static ?string $navigationIcon = 'heroicon-o-puzzle-piece';
 
     public static function form(Form $form): Form
     {
@@ -48,14 +50,14 @@ class AttributeResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -63,5 +65,5 @@ class AttributeResource extends Resource
             'create' => Pages\CreateAttribute::route('/create'),
             'edit' => Pages\EditAttribute::route('/{record}/edit'),
         ];
-    }    
+    }
 }
