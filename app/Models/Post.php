@@ -5,13 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,20 +16,16 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'user_id',
-        'name',
+        'title',
         'slug',
+        'short_content',
+        'content',
+        'status',
         'category_id',
-        'short_description',
-        'description',
-        'sku',
-        'price',
-        'discount_price',
-        'discount_percentage',
-        'is_active',
+        'user_id',
+        'is_visible',
         'is_featured',
         'published_at',
-        'meta',
         'views',
     ];
 
@@ -42,8 +35,8 @@ class Product extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'is_visible' => 'boolean',
         'is_featured' => 'boolean',
-        'is_active' => 'boolean',
         'published_at' => 'datetime',
     ];
 
@@ -52,19 +45,21 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function attributes() : BelongsToMany
-    {
-        return $this->belongsToMany(AttributeValue::class);
-    }
 
-    public function categories() : BelongsToMany
-    {
-        return $this->belongsToMany(Category::class);
-    }
-
-    public function category(): BelongsTo
+    public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Is Visible Scope
+     *
+     * @param Builder $query
+     * @return void
+     */
+    public function scopeIsVisible($query)
+    {
+        $query->where('is_visible', 1);
     }
 
     /**
@@ -76,16 +71,5 @@ class Product extends Model
     public function scopeIsFeatured($query)
     {
         $query->where('is_featured', 1);
-    }
-
-    /**
-     * Is Active Scope
-     *
-     * @param Builder $query
-     * @return void
-     */
-    public function scopeIsActive($query)
-    {
-        $query->where('is_active', 1);
     }
 }

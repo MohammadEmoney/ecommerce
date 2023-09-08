@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'username',
         'first_name',
         'last_name',
+        'name',
         'email',
         'phone',
         'email_verified_at',
@@ -49,4 +51,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
+    /**
+     * Determine if the user is an administrator.
+     */
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn () => $this->first_name . ' ' . $this->last_name,
+        );
+    }
 }

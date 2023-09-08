@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Kalnoy\Nestedset\NodeTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Category extends Model
+class Report extends Model
 {
     use HasFactory;
-    use NodeTrait;
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,10 +16,20 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'slug',
+        'model_type',
+        'model_id',
+        'user_id',
         'description',
         'type',
     ];
 
+    public function model()
+    {
+        return $this->morphTo();
+    }
+
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

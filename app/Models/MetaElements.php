@@ -4,14 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Kalnoy\Nestedset\NodeTrait;
 
-class Category extends Model
+class MetaElements extends Model
 {
     use HasFactory;
-    use NodeTrait;
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -19,10 +15,17 @@ class Category extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
+        'model_type',
+        'model_id',
+        'key',
+        'value',
         'type',
+        'name',
+        'order',
     ];
 
+    public function model()
+    {
+        return $this->morphTo();
+    }
 }
