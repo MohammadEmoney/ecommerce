@@ -8,14 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\ModelStatus\HasStatuses;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     use HasFactory;
     use SoftDeletes;
     use HasTags;
     use HasStatuses;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
